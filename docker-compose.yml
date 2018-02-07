@@ -22,7 +22,7 @@ services:
       context: .
       args:
         - user=${USER}
-    command: sudo ./start.sh
+    command: sh -c ./start.sh
     ports:
       - '3000:3000'
     volumes:
@@ -44,11 +44,17 @@ services:
       context: .
       args:
         - user=${USER}
-    command: sudo ./start_jobs.sh
+    command: sh -c ./start_jobs.sh
     volumes:
       - '.:/app'
     volumes_from:
       - box
+
+  mailcatcher:
+    image: yappabe/mailcatcher
+    ports:
+      - 1025:1025
+      - 1080:1080
 
 volumes:
   redis:
